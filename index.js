@@ -51,14 +51,14 @@ module.exports = function (glob, opts) {
 
     case "?":
       if (extended) {
-        reStr += ".";
+        reStr += "(.)";
 	    break;
       }
 
     case "[":
     case "]":
       if (extended) {
-        reStr += c;
+        reStr += c === "[" ? "([" : "])";
 	    break;
       }
 
@@ -97,7 +97,7 @@ module.exports = function (glob, opts) {
 
       if (!globstar) {
         // globstar is disabled, so treat any number of "*" as one
-        reStr += ".*";
+        reStr += "(.*)";
       } else {
         // globstar is enabled, so determine if this is a globstar segment
         var isGlobstar = starCount > 1                      // multiple "*"'s
